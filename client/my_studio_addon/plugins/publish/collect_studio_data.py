@@ -12,6 +12,9 @@ class CollectMyStudioData(pyblish.api.ContextPlugin):
     enabled = True
 
     def process(self, context):
-        url = ayon_api.get_addon_url(ADDON_NAME, __version__, "studio-data")
-        response = ayon_api.get(url)
+        response = ayon_api.get(
+            f"addons/{ADDON_NAME}/{__version__}/studio-data"
+        )
+        response.raise_for_status()
+        self.log.debug("MyStudio data: %s", response.data)
         context.data["myStudioData"] = response.data

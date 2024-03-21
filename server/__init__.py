@@ -31,8 +31,8 @@ class ExampleAddon(BaseServerAddon):
     def initialize(self):
         logging.info("Example addon INIT")
         self.add_endpoint(
-            "get-random-folder/{project_name}",
-            self.get_random_folder,
+            "studio-data",
+            self.get_studio_data,
             method="GET",
         )
 
@@ -50,43 +50,11 @@ class ExampleAddon(BaseServerAddon):
     # Example REST endpoint
     # Depends(dep_current_user) ensures the request is authenticated
 
-    async def get_random_folder(
+    async def get_studio_data(
         self,
-        user: CurrentUser,
-        project_name: ProjectName,
+        user: CurrentUser
     ):
         """Return a random folder from the database"""
-
-        settings = await self.get_project_settings(project_name)
-        assert settings is not None  # Keep mypy happy
-
-        # Get a random folder id from the project
-        try:
-            result = await Postgres.fetch(
-                f"""
-                SELECT id FROM project_{project_name}.folders
-                WHERE folder_type = $1
-                ORDER BY RANDOM() LIMIT 1
-                """,
-                settings.folder_type,
-            )
-        except Postgres.UndefinedTableError:
-            raise NotFoundException(f"Project {project_name} not found")
-
-        try:
-            folder_id = result[0]["id"]
-        except IndexError:
-            raise NotFoundException("No folder found")
-
-        # Load the folder entity
-
-        folder = await FolderEntity.load(project_name, folder_id)
-
-        # ensure_read_access method raises ForbiddenException, when the user
-        # does not have rights to view the folder.
-
-        await folder.ensure_read_access(user)
-
-        # FolderEntity.as_user returns the folder (similarly to folder.payload)
-        # but it respects the user access level (so it may hide certain attributes)
-        return folder.as_user(user)
+        return {
+            "secret-of-the-studio": "There is no secret"
+        }
