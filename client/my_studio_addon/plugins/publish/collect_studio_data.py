@@ -8,6 +8,8 @@ class CollectMyStudioData(pyblish.api.ContextPlugin):
     order = pyblish.api.CollectorOrder
     label = "Collect My Studio Data"
 
+    settings_category = "my_studio_addon"
+
     # This can be changed by settings
     enabled = True
 

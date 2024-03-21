@@ -11,15 +11,10 @@ class CollectMyStudioDataModel(BaseSettingsModel):
 
 class PublishPluginsModel(BaseSettingsModel):
     CollectMyStudioData: CollectMyStudioDataModel = SettingsField(
-        default_factory = CollectMyStudioDataModel,
-        title = "Publish"
+        default_factory=CollectMyStudioDataModel,
+        title="Collect My Studio Data"
     )
 
-class PluginsModel(BaseSettingsModel):
-    publish: PublishPluginsModel = SettingsField(
-        default_factory = PublishPluginsModel,
-        title = "Publish"
-    )
 
 class ExampleSettings(BaseSettingsModel):
     """Test addon settings.
@@ -35,9 +30,9 @@ class ExampleSettings(BaseSettingsModel):
     can use markdown syntax to format your descriptions, e.g.:
     **bold** , *italic* , `code`, [links](https://openpype.io)...
     """
-    plugins: PluginsModel = SettingsField(
-        default_factory = PluginsModel,
-        title = "Plugins"
+    publish: PublishPluginsModel = SettingsField(
+        default_factory=PublishPluginsModel,
+        title="Publish"
     )
 
 # class ExampleSettings(BaseSettingsModel):
