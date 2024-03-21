@@ -2,17 +2,7 @@ from typing import Literal, TYPE_CHECKING
 
 from pydantic import Field, validator
 
-from ayon_server.lib.postgres import Postgres
-from ayon_server.settings import BaseSettingsModel, ensure_unique_names, normalize_name,SettingsField
-from ayon_server.settings.enum import folder_types_enum
-from ayon_server.types import (
-    ColorRGB_hex,
-    ColorRGBA_hex,
-    ColorRGB_float,
-    ColorRGBA_float,
-    ColorRGB_uint8,
-    ColorRGBA_uint8,
-)
+from ayon_server.settings import BaseSettingsModel,SettingsField
 
 
 class CollectMyStudioDataModel(BaseSettingsModel):
