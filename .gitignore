@@ -1,10 +1,15 @@
-__pycache__
+# Ignore env files
 .venv
 .env
 .vscode
-poetry.lock
+
+# Ignore python cache files
+__pycache__
+
+# Ignore output package
 package/
 
+# Ignore generated frontend files
 node_modules
 dist
 frontend/yarn.lock
@@ -12,3 +17,6 @@ frontend/yarn-error.log
 frontend/.yarn
 frontend/.pnp.cjs
 frontend/.pnp.loader.mjs
+
+# Ignore genertated client version file
+client/*/version.py
