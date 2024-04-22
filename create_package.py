@@ -19,6 +19,13 @@ if available.
 
 Package contains server side files directly,
 client side code zipped in `private` subfolder.
+
+Note: .env file
+    create_package.py can load .env that includes AYON credentials.
+    .env file should be in the same directory as create_package.py
+    These keys are expected in the .env file:
+        AYON_SERVER_URL=""
+        AYON_API_KEY=""
 """
 
 import argparse
