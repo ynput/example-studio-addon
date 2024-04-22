@@ -113,7 +113,9 @@ class ZipFileLongPaths(zipfile.ZipFile):
             else:
                 tpath = "\\\\?\\" + tpath
 
-        return super(ZipFileLongPaths, self)._extract_member(member, tpath, pwd)
+        return super(ZipFileLongPaths, self)._extract_member(
+            member, tpath, pwd
+        )
 
 
 def safe_copy_file(src_path: str, dst_path: str):
