@@ -175,7 +175,7 @@ def find_files_in_subdir(
     hierarchy_queue: collections.deque = collections.deque()
     hierarchy_queue.append((src_path, []))
     while hierarchy_queue:
-        item: tuple[str, str] = hierarchy_queue.popleft()
+        item: tuple[str, list[str]] = hierarchy_queue.popleft()
         dirpath, parents = item
         for name in os.listdir(dirpath):
             path: str = os.path.join(dirpath, name)
