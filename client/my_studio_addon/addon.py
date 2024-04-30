@@ -84,10 +84,12 @@ class MyStudioAddon(AYONAddon, IPluginPaths, ITrayAddon):
 def cli_main():
     print("<<<< MyStudioAddon CLI >>>>")
 
+
 @cli_main.command()
 def welcome_cli():
     print("Welcome to MyStudioAddon command line interface!")
     print("This is an example of supporting command lines.")
+
 
 @cli_main.command()
 @click_wrap.option(
