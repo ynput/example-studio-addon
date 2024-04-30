@@ -164,5 +164,11 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-
-node_modules/
+# Ignore generated frontend files
+node_modules
+dist
+frontend/yarn.lock
+frontend/yarn-error.log
+frontend/.yarn
+frontend/.pnp.cjs
+frontend/.pnp.loader.mjs
