@@ -170,5 +170,6 @@ dist
 frontend/yarn.lock
 frontend/yarn-error.log
 frontend/.yarn
+frontend/package-lock.json
 frontend/.pnp.cjs
 frontend/.pnp.loader.mjs
