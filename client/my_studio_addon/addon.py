@@ -1,5 +1,10 @@
 import os
-from ayon_core.addon import AYONAddon, IPluginPaths, ITrayAddon
+from ayon_core.addon import (
+    click_wrap,
+    AYONAddon,
+    IPluginPaths,
+    ITrayAddon
+)
 
 MY_STUDIO_ADDON_ROOT = os.path.dirname(os.path.abspath(__file__))
 ADDON_NAME = "my_studio_addon"
@@ -67,3 +72,31 @@ class MyStudioAddon(AYONAddon, IPluginPaths, ITrayAddon):
         action_show_my_dialog.triggered.connect(self.show_my_dialog)
 
         tray_menu.addMenu(menu)
+
+    # Add CLI
+    def cli(self, click_group):
+        click_group.add_command(cli_main.to_click_obj())
+
+
+@click_wrap.group(
+    MyStudioAddon.name,
+    help="MyStudio Addon related commands.")
+def cli_main():
+    print("<<<< MyStudioAddon CLI >>>>")
+
+
+@cli_main.command()
+def welcome_cli():
+    print("Welcome to MyStudioAddon command line interface!")
+    print("This is an example of supporting command lines.")
+
+
+@cli_main.command()
+@click_wrap.option(
+    "--word",
+    help="A word to be repeated.",
+    type=str,
+    required=False
+)
+def echo(word):
+    print("Echo Echo,", word, "!")
