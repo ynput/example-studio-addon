@@ -205,7 +205,10 @@ def copy_frontend_content(addon_output_dir, current_dir, log, build=True):
     filepaths_to_copy = []
     frontend_dirpath = os.path.join(current_dir, "frontend")
     frontend_dist_dirpath: str = os.path.join(frontend_dirpath, "dist")
-
+    
+    if not os.path.exists(frontend_dirpath):
+        return
+    
     if build:
         npm_executable = _get_executable("npm")
         if npm_executable is None:
@@ -294,8 +297,10 @@ def zip_client_side(addon_package_dir, current_dir, log):
         for path, sub_path in find_files_in_subdir(client_addon_dir):
             sub_path = os.path.join(ADDON_CLIENT_DIR, sub_path)
             zipf.write(path, sub_path)
-
-    shutil.copy(os.path.join(client_dir, "pyproject.toml"), private_dir)
+    
+    pyproject_toml = os.path.join(client_dir, "pyproject.toml")
+    if os.path.exists(pyproject_toml):
+        shutil.copy(pyproject_toml, private_dir)
 
 
 def create_server_package(
