@@ -6,13 +6,18 @@ from ayon_core.addon import (
     ITrayAddon
 )
 
+from .version import __version__
+
+
 MY_STUDIO_ADDON_ROOT = os.path.dirname(os.path.abspath(__file__))
 ADDON_NAME = "my_studio_addon"
 ADDON_LABEL = "My Studio Addon"
 
+
 class MyStudioAddon(AYONAddon, IPluginPaths, ITrayAddon):
     name = ADDON_NAME
     label = ADDON_LABEL
+    version = __version__
 
     def initialize(self, settings):
         """Initialization of module."""
