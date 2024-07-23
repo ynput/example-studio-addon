@@ -47,7 +47,7 @@ with open(PACKAGE_PATH, "r") as stream:
 ADDON_VERSION = package_content["version"]
 ADDON_NAME = package_content["name"]
 ADDON_TITLE = package_content["title"]
-ADDON_CLIENT_DIR = package_content["client_dir"]
+ADDON_CLIENT_DIR = package_content.get("client_dir")
 CLIENT_VERSION_CONTENT = '''# -*- coding: utf-8 -*-
 """Package declaring {0} addon version."""
 __version__ = "{1}"
@@ -207,6 +207,9 @@ def copy_frontend_content(addon_output_dir, current_dir, log, build=True):
     frontend_dist_dirpath: str = os.path.join(frontend_dirpath, "dist")
     
     if not os.path.exists(frontend_dirpath):
+        log.debug(
+            "Skipping frontend, This addon doesn't contain frontend."
+        )
         return
     
     if build:
@@ -276,12 +279,20 @@ def zip_client_side(addon_package_dir, current_dir, log):
         log (logging.Logger): Logger object.
     """
 
+    if not ADDON_CLIENT_DIR:
+        log.debug(
+            "Skipping client code zipping, This addon doesn't contain client code."
+        )
+        return
+    
     client_dir = os.path.join(current_dir, "client")
     client_addon_dir = os.path.join(client_dir, ADDON_CLIENT_DIR)
     if not os.path.isdir(client_addon_dir):
-        raise ValueError(
-            f"Failed to find client directory '{client_addon_dir}'"
+        log.debug(
+            "Skipping client code zipping, Client code path '{}' doesn't exist."
+            .format(client_addon_dir)
         )
+        return
 
     log.info("Preparing client code zip")
     private_dir = os.path.join(addon_package_dir, "private")
@@ -300,6 +311,7 @@ def zip_client_side(addon_package_dir, current_dir, log):
     
     pyproject_toml = os.path.join(client_dir, "pyproject.toml")
     if os.path.exists(pyproject_toml):
+        log.debug("'pyproject.toml' was found, Copying to packaging directory.")
         shutil.copy(pyproject_toml, private_dir)
 
 
