@@ -281,7 +281,7 @@ def zip_client_side(addon_package_dir, current_dir, log):
 
     if not ADDON_CLIENT_DIR:
         log.debug(
-            "Skipping client code zipping, This addon doesn't contain client code."
+            "Skipping client code zipping, 'package.py' doesn't specify `client_dir`."
         )
         return
     
