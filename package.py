@@ -1,6 +1,6 @@
 name = "my_studio_addon"
 title = "MyStudio"
-version = "1.0.0"
+version = "1.0.1"
 
 client_dir = "my_studio_addon"
 
