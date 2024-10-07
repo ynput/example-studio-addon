@@ -13,20 +13,19 @@ import App from './App.jsx'
 
 
 function Index() {
-  const accessToken = useContext(AddonContext).accessToken
-  const addonName = useContext(AddonContext).addonName
-  const addonVersion = useContext(AddonContext).addonVersion
+  const context = useContext(AddonContext)
+
   const [tokenSet, setTokenSet] = useState(false)
 
-  useEffect(() =>{
-    if (addonName && addonVersion){
-      addonData.addonName = addonName
-      addonData.addonVersion = addonVersion
-      addonData.baseUrl = `${window.location.origin}/api/addons/${addonName}/${addonVersion}`
-      console.log("BaseUrl", addonData.baseUrl)
+
+  useEffect(() => {
+    if (addonName && addonVersion) {
+      addonData.addonName = addonName;
+      addonData.addonVersion = addonVersion;
+      addonData.baseUrl = `${window.location.origin}/api/addons/${addonName}/${addonVersion}`;
+      console.log("BaseUrl", addonData.baseUrl);
     }
-      
-  }, [addonName, addonVersion])
+  }, [addonName, addonVersion]);
 
   useEffect(() => {
     if (accessToken && !tokenSet) {
@@ -35,8 +34,18 @@ function Index() {
     }
   }, [accessToken, tokenSet])
 
+  if (!context) {
+    return <p>Loading...</p>
+  }
+
+  const accessToken = context.accessToken
+  const addonName = context.addonName
+  const addonVersion = context.addonVersion
+
+
+
   if (!tokenSet) {
-    return "no token"
+    return <p>No token found!</p>
   }
 
   return <App />

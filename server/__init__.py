@@ -23,7 +23,7 @@ class ExampleAddon(BaseServerAddon):
     # to show the project hierarchy sidebar. This feature is not yet
     # fully functional and will be changed in the future.
 
-    frontend_scopes: dict[str, dict[str, str]] = {"settings": {}}
+    frontend_scopes: dict[str] = {"project": {"sidebar": "hierarchy"}}
 
     # intitalize method is called during the addon initialization
     # You can use it to register its custom REST endpoints
